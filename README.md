@@ -42,7 +42,7 @@ Once you've started the application, follow the instructions in the application 
 
 ## Further Reading
 
-For more guidance and information about this project, please visit this research paper made by our team.
+For more guidance and information about this project, please visit this research paper - https://ieeexplore.ieee.org/document/10467512 made by our team.
 
 ## Contributing
 

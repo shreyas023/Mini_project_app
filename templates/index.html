@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Smart Inventory Optimization</h1>
-    <form action="{{url_for('predict')}}" method="post">
+    <form action="{{url_for('predict')}}" method="post" id="form">
 
         <!-- Input fields for each feature -->
         <label for="Item_Cost">Item Cost:</label>
@@ -60,5 +60,10 @@
     <br>
     <h2>Prediction Result:</h2>
     <p>{{prediction_text}}</p>
+    <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+        })
+    </script>
 </body>
 </html>

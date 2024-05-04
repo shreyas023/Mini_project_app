@@ -1,13 +1,12 @@
 import pickle
 import pandas as pd
 import numpy as np
-from flask import Flask,render_template,request
+from flask import Flask, render_template, request
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="sklearn.base")
 
 from sklearn.preprocessing import OrdinalEncoder
 le = OrdinalEncoder()
-
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl','rb'))
@@ -16,7 +15,7 @@ model = pickle.load(open('model.pkl','rb'))
 def index():
     return render_template('index.html')
 
-@app.route('/predict',methods=['GET','POST'])
+@app.route('/predict',methods=['POST'])
 def predict():
 
     Item_Cost = float(request.form.get('Item_Cost'))
@@ -52,8 +51,7 @@ def predict():
     }
     Demand_Fluctuation	= encoding_demand[request.form.get('Demand_Fluctuation')]
 
-    input_data = [[Item_Cost,Item_Count,Total_Cost,Lead_Time,Shelf_Life,EOQ,Lead_Time_Variability,Seasonality,Warehouse_Location,Customer_Reviews,Historical_Sales_Data,Demand_Fluctuation]]  # List of input values, complete with other features
-
+    input_data = [[Item_Cost, Item_Count, Total_Cost, Lead_Time, Shelf_Life, EOQ, Lead_Time_Variability, Seasonality, Warehouse_Location, Customer_Reviews, Historical_Sales_Data, Demand_Fluctuation]] 
 
     prediction = model.predict(input_data)
     output = prediction[0]
@@ -64,15 +62,9 @@ def predict():
         prediction_text = "This is the less perishable and profitable inventory, it need to be managed at the medium priority. This belongs to class B."
     elif output == 'C':
         prediction_text = "This is the non-perishable and less profitable inventory, it need to be managed at the lowest priority. This belongs to class C"
-    
-    print(prediction_text)
-    return render_template('index.html', prediction_text=prediction_text)
 
+    # return jsonify({'prediction_text': prediction_text})
+    return render_template('index.html', prediction_text=prediction_text)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-

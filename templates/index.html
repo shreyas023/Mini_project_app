@@ -60,10 +60,22 @@
     <br>
     <h2>Prediction Result:</h2>
     <p>{{prediction_text}}</p>
-    <script>
-        document.getElementById("form").addEventListener("submit", function(event) {
-            event.preventDefault();
-        })
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script>
+    $("#form").submit(function(event) {
+        event.preventDefault();
+        var form_data = $(this).serialize();
+        $.ajax({
+            url: "{{url_for('predict')}}",
+            method: "POST",
+            data: form_data,
+            success: function(data) {
+                // Update the prediction result in the HTML
+                $("p").html(data.prediction_text);
+            }
+        });
+    });
+</script> -->
+
 </body>
 </html>
